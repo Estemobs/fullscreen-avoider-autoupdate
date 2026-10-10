@@ -2,7 +2,7 @@
 
 import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
-import { State, Urgency } from 'resource:///org/gnome/shell/ui/messageTray.js';
+import { State, Urgency, MessageSource, MessageNotification } from 'resource:///org/gnome/shell/ui/messageTray.js';
 import Meta from 'gi://Meta';
 const LM = Main.layoutManager;
 const MT = Main.messageTray;
@@ -108,6 +108,9 @@ export default class FullscreenAvoider extends Extension {
 	}
 
 	enable() {
+		// Check GNOME Shell version compatibility
+		this._check_version_compatibility();
+
 		this._original_updateState = MT._updateState;
 		this._original_getDraggableWindowForPosition = Main.panel._getDraggableWindowForPosition;
 		this._settings = this.getSettings();
@@ -117,6 +120,37 @@ export default class FullscreenAvoider extends Extension {
 		this.patch_updateState();
 		this.patch_getDraggableWindowForPosition();
 		this.fullscreen_changed();
+	}
+
+	_check_version_compatibility() {
+		try {
+			// Get current GNOME Shell major version (e.g., "51" from "51.0")
+			const version_str = imports.misc.config.PACKAGE_VERSION;
+			const current_major = parseInt(version_str.split('.')[0], 10);
+
+			// Get supported versions from metadata
+			const supported = (this.metadata['shell-version'] || []).map(v => parseInt(v, 10));
+			const max_supported = supported.length > 0 ? Math.max(...supported) : 0;
+
+			if (!supported.includes(current_major)) {
+				const msg = `Fullscreen Avoider: Running on GNOME Shell ${current_major}, ` +
+					`but metadata only supports up to ${max_supported}. ` +
+					`The extension may not work correctly. ` +
+					`Update via GitHub or run the auto-update script.`;
+
+				log(`[Fullscreen Avoider] ${msg}`);
+
+				// Show notification to user (non-blocking)
+				const source = new MessageSource();
+				const notification = new MessageNotification(source, msg, {
+					transient: false,
+					urgency: Urgency.HIGH,
+				});
+				MT.add(notification);
+			}
+		} catch (e) {
+			logError(e, '[Fullscreen Avoider] Version check failed');
+		}
 	}
 
 	disable() {
