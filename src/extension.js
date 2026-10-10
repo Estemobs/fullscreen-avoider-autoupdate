@@ -2,7 +2,7 @@
 
 import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
-import { State, Urgency, MessageSource, MessageNotification } from 'resource:///org/gnome/shell/ui/messageTray.js';
+import { State, Urgency, Notification } from 'resource:///org/gnome/shell/ui/messageTray.js';
 import Meta from 'gi://Meta';
 const LM = Main.layoutManager;
 const MT = Main.messageTray;
@@ -141,12 +141,15 @@ export default class FullscreenAvoider extends Extension {
 				log(`[Fullscreen Avoider] ${msg}`);
 
 				// Show notification to user (non-blocking)
-				const source = new MessageSource();
-				const notification = new MessageNotification(source, msg, {
-					transient: false,
+				const source = MT.getSystemSource();
+				const notification = new Notification({
+					source: source,
+					title: 'Fullscreen Avoider',
+					body: msg,
 					urgency: Urgency.HIGH,
+					transient: false,
 				});
-				MT.add(notification);
+				source.showNotification(notification);
 			}
 		} catch (e) {
 			logError(e, '[Fullscreen Avoider] Version check failed');
