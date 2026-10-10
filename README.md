@@ -24,35 +24,72 @@ GNOME Shell Extension that moves the top panel to the secondary monitor when the
 ```bash
 # Clone the repository
 git clone https://github.com/Estemobs/fullscreen-avoider-autoupdate.git
-cd fullscreen-avoider
+cd fullscreen-avoider-autoupdate
 
 # Build and install
 make install
 
-# Restart GNOME Shell
+# Restart GNOME Shell (required for the extension to be detected)
 # X11: Press Alt+F2, type 'r', press Enter
-# Wayland: Log out and log back in
+# Wayland: Log out and log back in (or reboot)
 
 # Enable the extension
 gnome-extensions enable fullscreen-avoider@noobsai.github.com
+
+# Or use the GUI: open "Extensions" app and toggle Fullscreen Avoider ON
 ```
 
 ### Option 3: Development Installation (Symlink)
 
 ```bash
 git clone https://github.com/Estemobs/fullscreen-avoider-autoupdate.git
-cd fullscreen-avoider
+cd fullscreen-avoider-autoupdate
 make debug_install
 
-# Restart GNOME Shell and enable via gnome-extensions-app
+# Restart GNOME Shell, then enable via:
+# - "Extensions" app (GUI), OR
+# - Command: gnome-extensions enable fullscreen-avoider@noobsai.github.com
 ```
 
 ### Option 4: Manual Zip Installation
 
 1. Download the latest release zip from [GitHub Releases](https://github.com/Estemobs/fullscreen-avoider-autoupdate/releases)
 2. Extract to `~/.local/share/gnome-shell/extensions/fullscreen-avoider@noobsai.github.com/`
-3. Restart GNOME Shell
-4. Enable via `gnome-extensions-app` or Extensions manager
+3. Restart GNOME Shell (Alt+F2 → `r` on X11, or log out/in on Wayland)
+4. Enable via "Extensions" app or run: `gnome-extensions enable fullscreen-avoider@noobsai.github.com`
+
+## 🔑 Post-Installation Steps (Required for ALL methods)
+
+After running `make install` (or any installation method), you **must** do these two steps:
+
+### 1. Restart GNOME Shell
+| Session Type | How to Restart |
+|--------------|----------------|
+| **X11** (default on most distros) | Press `Alt+F2`, type `r`, press `Enter` |
+| **Wayland** (Ubuntu 22.04+, Fedora, etc.) | **Log out and log back in** (or reboot) |
+
+> 💡 To check which session you're on: run `echo $XDG_SESSION_TYPE` in terminal
+
+### 2. Enable the Extension
+**Option A - GUI (easiest):**
+1. Open the **"Extensions"** app (pre-installed on GNOME)
+2. Find **"Fullscreen Avoider"** in the list
+3. Toggle the switch **ON**
+
+**Option B - Command line:**
+```bash
+gnome-extensions enable fullscreen-avoider@noobsai.github.com
+```
+
+**Option C - GNOME Extensions App (legacy):**
+```bash
+gnome-extensions-app
+```
+
+### 3. Verify It Works
+- Connect a **second monitor**
+- Fullscreen a window (video, browser, etc.) on your **primary** monitor
+- The top panel should move to the **secondary** monitor
 
 ## Configuration
 
