@@ -17,6 +17,7 @@ zip: build
 install: uninstall build
 	mkdir -p $(EXTENSIONDIR)/$(UUID)
 	cp -r $(BUILDDIR)/$(UUID) $(EXTENSIONDIR)
+	glib-compile-schemas $(EXTENSIONDIR)/$(UUID)/schemas/
 
 uninstall:
 	rm -rf $(EXTENSIONDIR)/$(UUID)
