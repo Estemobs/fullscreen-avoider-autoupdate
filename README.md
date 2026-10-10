@@ -23,7 +23,7 @@ GNOME Shell Extension that moves the top panel to the secondary monitor when the
 
 ```bash
 # Clone the repository
-git clone https://github.com/Noobsai/fullscreen-avoider.git
+git clone https://github.com/Estemobs/fullscreen-avoider-autoupdate.git
 cd fullscreen-avoider
 
 # Build and install
@@ -40,7 +40,7 @@ gnome-extensions enable fullscreen-avoider@noobsai.github.com
 ### Option 3: Development Installation (Symlink)
 
 ```bash
-git clone https://github.com/Noobsai/fullscreen-avoider.git
+git clone https://github.com/Estemobs/fullscreen-avoider-autoupdate.git
 cd fullscreen-avoider
 make debug_install
 
@@ -49,7 +49,7 @@ make debug_install
 
 ### Option 4: Manual Zip Installation
 
-1. Download the latest release zip from [GitHub Releases](https://github.com/Noobsai/fullscreen-avoider/releases)
+1. Download the latest release zip from [GitHub Releases](https://github.com/Estemobs/fullscreen-avoider-autoupdate/releases)
 2. Extract to `~/.local/share/gnome-shell/extensions/fullscreen-avoider@noobsai.github.com/`
 3. Restart GNOME Shell
 4. Enable via `gnome-extensions-app` or Extensions manager
@@ -179,5 +179,5 @@ MIT License - see [LICENSE](LICENSE) for details.
 ## Links
 
 - [GNOME Extensions Page](https://extensions.gnome.org/extension/4362/fullscreen-avoider/)
-- [GitHub Repository](https://github.com/Noobsai/fullscreen-avoider)
-- [Report Issues](https://github.com/Noobsai/fullscreen-avoider/issues)
+- [GitHub Repository](https://github.com/Estemobs/fullscreen-avoider-autoupdate)
+- [Report Issues](https://github.com/Estemobs/fullscreen-avoider-autoupdate/issues)
